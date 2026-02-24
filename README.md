@@ -138,3 +138,18 @@ youtube-transcript-api
 python-dotenv
 groq
 requests
+
+## 📸 Screenshots
+
+### Bot Start
+![Bot Start](screenshots/start.png)
+
+### Video Summary
+![Summary](screenshots/summary.png)
+
+### Ask Question
+![Question](screenshots/question.png)
+
+### Answer
+![Answer](screenshots/answer.png)
+
