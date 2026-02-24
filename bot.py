@@ -15,20 +15,14 @@ from utils import extract_video_id, get_transcript
 from summarizer import summarize
 from qa import answer_question
 
-# -------------------------
-# Setup
-# -------------------------
 load_dotenv()
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 
 logging.basicConfig(level=logging.INFO)
 
-# In-memory session storage
-user_sessions = {}  # chat_id -> transcript
+user_sessions = {}  
 
-# -------------------------
-# Helpers
-# -------------------------
+
 
 def detect_language(text: str) -> str:
     text = text.lower()
@@ -36,9 +30,7 @@ def detect_language(text: str) -> str:
         return "Hindi"
     return "English"
 
-# -------------------------
-# Commands
-# -------------------------
+
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
@@ -58,18 +50,13 @@ async def help_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "Use: summarize in hindi"
     )
 
-# -------------------------
-# Message Handler
-# -------------------------
+
 
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     try:
         text = update.message.text
         chat_id = update.message.chat_id
 
-        # -------------------------
-        # YouTube Link
-        # -------------------------
         if "youtube.com" in text or "youtu.be" in text:
 
             await update.message.reply_text("Fetching transcript...")
@@ -86,9 +73,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
             await update.message.reply_text(summary)
 
-        # -------------------------
-        # Question
-        # -------------------------
+       
         else:
             if chat_id not in user_sessions:
                 await update.message.reply_text(
@@ -107,9 +92,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
             "⚠️ Unable to process request. Try another video."
         )
 
-# -------------------------
-# App Initialization
-# -------------------------
+
 
 app = (
     ApplicationBuilder()
